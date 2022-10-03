@@ -8,7 +8,7 @@ namespace TelephoneBook.Helper.RabbitMq
 {
     public class RabbitMq
     {
-        public static void Consume(Report obj, PostreSqlContext database)
+        public static async void Consume(Report obj, PostreSqlContext database)
         {
             var factory = new ConnectionFactory()
             {
@@ -37,7 +37,7 @@ namespace TelephoneBook.Helper.RabbitMq
                 }
                 else
                 {
-                    database.Report.Add(obj); 
+                    await database.Report.AddAsync(obj);
                     database.SaveChanges();
                 }
                 //Queue ya atmak için kullanılır.

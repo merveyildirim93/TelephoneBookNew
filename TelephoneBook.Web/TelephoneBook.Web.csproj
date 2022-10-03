@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\wwwroot\**" />
+    <Content Remove="Controllers\wwwroot\**" />
+    <EmbeddedResource Remove="Controllers\wwwroot\**" />
+    <None Remove="Controllers\wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\HomeController.cs" />
   </ItemGroup>
 
