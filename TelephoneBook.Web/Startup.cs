@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TelephoneBook.Web.Common;
 
 namespace TelephoneBook.Web
 {
@@ -24,6 +25,7 @@ namespace TelephoneBook.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.Configure<ConfigModel>(Configuration.GetSection("ApiConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +52,7 @@ namespace TelephoneBook.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Person}/{action=Index}/{id?}");
             });
         }
     }

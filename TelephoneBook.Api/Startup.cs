@@ -1,16 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TelephoneBook.Business.ContactInfoBusiness;
+using TelephoneBook.Business.PersonBusiness;
+using TelephoneBook.Business.ReportBusiness;
+using TelephoneBook.DataAccess.Context;
 
 namespace TelephoneBook.Api
 {
@@ -26,12 +24,21 @@ namespace TelephoneBook.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<PostreSqlContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TelephoneDirectory.DataAccess")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TelephoneBook.Api", Version = "v1" });
             });
+            services.AddTransient<IPersonBusiness, PersonBusiness>();
+            services.AddTransient<IContactInfoBusiness, ContactInfoBusiness>();
+            services.AddTransient<IReportBusiness, ReportBusiness>();
+            services.AddCors(options => options.AddPolicy("AllowOrigin", p =>
+            {
+                p.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
