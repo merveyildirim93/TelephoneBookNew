@@ -35,7 +35,9 @@ namespace TelephoneBook.UnitTest.BusinessTest
             personBusiness.Setup(m => m.GetPersonForEdit(Guid.Parse("392f073b-0446-44ea-a25e-e4386c54d0ad"))).Returns(onePerson);
 
             personBusiness.Setup(m => m.CreatePerson(createdTestPerson)).Returns(response);
-            
+
+            personBusiness.Setup(m => m.DeletePerson(Guid.Parse("392f073b-0446-44ea-a25e-e4386c54d0ad"))).Returns(response);
+
         }
 
         [Fact]
@@ -70,7 +72,7 @@ namespace TelephoneBook.UnitTest.BusinessTest
         [Fact]
         public void Deleted_Person_False_Test()
         {
-            var response = personController.DeletePerson(Guid.Parse("392f073b-0446-44ea-a25e-e4386c54d0ad"));
+            var response = personController.DeletePerson(Guid.Parse("8752c73b-0446-44ea-a25e-e4386c54d0ad"));
             Assert.False(response.IsSuccess);
         }
 

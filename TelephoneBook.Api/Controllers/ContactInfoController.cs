@@ -5,7 +5,7 @@ using TelephoneBook.Business.ContactInfoBusiness;
 using TelephoneBook.DataAccess.Entity;
 using TelephoneBook.Helper.Response;
 
-namespace TelephoneDirectory.Api.Controllers
+namespace TelephoneBook.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
